@@ -8,7 +8,7 @@
     tools:context=".TappyShip">
 
     <TextView
-        android:id="@+id/txtHighScore"
+        android:id="@+id/txtTappyShipScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="High Score : 99999"
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.075" />
 
     <Button
-        android:id="@+id/btnPlay"
+        android:id="@+id/btnTappyShipPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Play"
