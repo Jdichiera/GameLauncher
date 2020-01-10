@@ -1,7 +1,9 @@
 package com.example.gamelauncher;
 
 import android.app.Activity;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 
 public class TappyShipGameActivity extends Activity {
     private TappyShipView gameView;
@@ -9,7 +11,15 @@ public class TappyShipGameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        gameView = new TappyShipView(this);
+
+        // Get a Display object to access screen details
+        Display display = getWindowManager().getDefaultDisplay();
+
+        // Get the display resolution and load it to a point object
+        Point screenSize = new Point();
+        display.getSize(screenSize);
+
+        gameView = new TappyShipView(this, screenSize.x, screenSize.y);
 
         setContentView(gameView);
     }

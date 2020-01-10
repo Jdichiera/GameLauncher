@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,12 +17,12 @@ public class TappyShipView extends SurfaceView implements Runnable {
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
 
-    public TappyShipView(Context context) {
+    public TappyShipView(Context context, int screenSizeX, int screenSizeY) {
         super(context);
 
         surfaceHolder = getHolder();
         paint = new Paint();
-        player = new TappyShipPlayerShip(context);
+        player = new TappyShipPlayerShip(context, screenSizeX, screenSizeY);
     }
 
     @Override
@@ -54,6 +55,10 @@ public class TappyShipView extends SurfaceView implements Runnable {
     }
 
     private void control() {
+        try {
+            gameThread.sleep(17);
+        } catch (InterruptedException e) {
+        }
 
     }
 
@@ -76,8 +81,10 @@ public class TappyShipView extends SurfaceView implements Runnable {
     public boolean onTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_UP:
+                player.stopBoosting();
                 break;
             case MotionEvent.ACTION_DOWN:
+                player.startBoosting();
                 break;
         }
 
