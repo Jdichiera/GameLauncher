@@ -1,14 +1,28 @@
 package com.example.gamelauncher;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.os.Bundle;
 
-public class TappyShipGameActivity extends AppCompatActivity {
+public class TappyShipGameActivity extends Activity {
+    private TappyShipView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tappy_ship_game);
+        gameView = new TappyShipView(this);
+
+        setContentView(gameView);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameView.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameView.resume();
     }
 }
