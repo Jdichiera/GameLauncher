@@ -23,8 +23,8 @@ public class TappyShipPlayerShip {
         speed = 1;
         boosting = false;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ship);
-        maxY = 0;
-        minY = screenSizeY - bitmap.getHeight();
+        maxY = screenSizeY - bitmap.getHeight();
+        minY = 0;
     }
 
     public int getX() {
@@ -68,12 +68,12 @@ public class TappyShipPlayerShip {
 
         y -= speed + GRAVITY;
 
-//        if (y < minY) {
-//            y = minY;
-//        }
-//
-//        if (y > maxY) {
-//            y = maxY;
-//        }
+        if (y > maxY) {
+            y = maxY;
+        }
+
+        if (y < minY) {
+            y = minY;
+        }
     }
 }
