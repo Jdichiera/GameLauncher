@@ -9,6 +9,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class TappyShipView extends SurfaceView implements Runnable {
     private Thread gameThread = null;
     private volatile Boolean playing;
@@ -19,6 +22,7 @@ public class TappyShipView extends SurfaceView implements Runnable {
     public TappyShipEnemyShip enemyShip1;
     public TappyShipEnemyShip enemyShip2;
     public TappyShipEnemyShip enemyShip3;
+    public ArrayList<TappyShipSpaceDust> dusts = new ArrayList<TappyShipSpaceDust>();
 
     public TappyShipView(Context context, int screenSizeX, int screenSizeY) {
         super(context);
@@ -29,6 +33,12 @@ public class TappyShipView extends SurfaceView implements Runnable {
         enemyShip1 = new TappyShipEnemyShip(context, screenSizeX, screenSizeY);
         enemyShip2 = new TappyShipEnemyShip(context, screenSizeX, screenSizeY);
         enemyShip3 = new TappyShipEnemyShip(context, screenSizeX, screenSizeY);
+
+        int spaceDusts = 40;
+        for (int i = 0; i < spaceDusts; i++) {
+            TappyShipSpaceDust dust = new TappyShipSpaceDust(screenSizeX, screenSizeY);
+            dusts.add(dust);
+        }
     }
 
     @Override
@@ -45,6 +55,10 @@ public class TappyShipView extends SurfaceView implements Runnable {
         enemyShip1.update(player.getSpeed());
         enemyShip2.update(player.getSpeed());
         enemyShip3.update(player.getSpeed());
+
+        for (TappyShipSpaceDust dust : dusts) {
+            dust.update(player.getSpeed());
+        }
     }
 
     private void draw() {
@@ -56,6 +70,10 @@ public class TappyShipView extends SurfaceView implements Runnable {
             canvas.drawColor(Color.argb(255, 0, 0, 0));
 
             // Draw the player
+            paint.setColor(Color.argb(255, 255, 255, 255));
+            for (TappyShipSpaceDust dust : dusts) {
+                canvas.drawPoint(dust.getX(), dust.getY(), paint);
+            }
             canvas.drawBitmap(player.getBitmap(), player.getX(), player.getY(), paint);
             canvas.drawBitmap(enemyShip1.getBitmap(), enemyShip1.getX(),enemyShip1.getY(), paint);
             canvas.drawBitmap(enemyShip2.getBitmap(), enemyShip1.getX(),enemyShip1.getY(), paint);
