@@ -76,8 +76,8 @@ public class TappyShipView extends SurfaceView implements Runnable {
             }
             canvas.drawBitmap(player.getBitmap(), player.getX(), player.getY(), paint);
             canvas.drawBitmap(enemyShip1.getBitmap(), enemyShip1.getX(),enemyShip1.getY(), paint);
-            canvas.drawBitmap(enemyShip2.getBitmap(), enemyShip1.getX(),enemyShip1.getY(), paint);
-            canvas.drawBitmap(enemyShip3.getBitmap(), enemyShip1.getX(),enemyShip1.getY(), paint);
+            canvas.drawBitmap(enemyShip2.getBitmap(), enemyShip2.getX(),enemyShip2.getY(), paint);
+            canvas.drawBitmap(enemyShip3.getBitmap(), enemyShip3.getX(),enemyShip3.getY(), paint);
 
             // Unlock the canvas and draw the scene
             surfaceHolder.unlockCanvasAndPost(canvas);
