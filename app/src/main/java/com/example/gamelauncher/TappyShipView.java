@@ -10,12 +10,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class TappyShipView extends SurfaceView implements Runnable {
-    private volatile Boolean playing;
     private Thread gameThread = null;
-    private TappyShipPlayerShip player;
+    private volatile Boolean playing;
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
+    private TappyShipPlayerShip player;
+    public TappyShipEnemyShip enemyShip1;
+    public TappyShipEnemyShip enemyShip2;
+    public TappyShipEnemyShip enemyShip3;
 
     public TappyShipView(Context context, int screenSizeX, int screenSizeY) {
         super(context);
@@ -23,6 +26,9 @@ public class TappyShipView extends SurfaceView implements Runnable {
         surfaceHolder = getHolder();
         paint = new Paint();
         player = new TappyShipPlayerShip(context, screenSizeX, screenSizeY);
+        enemyShip1 = new TappyShipEnemyShip(context, screenSizeX, screenSizeY);
+        enemyShip2 = new TappyShipEnemyShip(context, screenSizeX, screenSizeY);
+        enemyShip3 = new TappyShipEnemyShip(context, screenSizeX, screenSizeY);
     }
 
     @Override
@@ -36,6 +42,9 @@ public class TappyShipView extends SurfaceView implements Runnable {
 
     private void update() {
         player.update();
+        enemyShip1.update(player.getSpeed());
+        enemyShip2.update(player.getSpeed());
+        enemyShip3.update(player.getSpeed());
     }
 
     private void draw() {
@@ -48,6 +57,9 @@ public class TappyShipView extends SurfaceView implements Runnable {
 
             // Draw the player
             canvas.drawBitmap(player.getBitmap(), player.getX(), player.getY(), paint);
+            canvas.drawBitmap(enemyShip1.getBitmap(), enemyShip1.getX(),enemyShip1.getY(), paint);
+            canvas.drawBitmap(enemyShip2.getBitmap(), enemyShip1.getX(),enemyShip1.getY(), paint);
+            canvas.drawBitmap(enemyShip3.getBitmap(), enemyShip1.getX(),enemyShip1.getY(), paint);
 
             // Unlock the canvas and draw the scene
             surfaceHolder.unlockCanvasAndPost(canvas);
