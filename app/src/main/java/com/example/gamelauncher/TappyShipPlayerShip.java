@@ -3,6 +3,7 @@ package com.example.gamelauncher;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 
 public class TappyShipPlayerShip {
     private int x;
@@ -11,7 +12,9 @@ public class TappyShipPlayerShip {
     private int minY;
     private int speed;
     private Bitmap bitmap;
+    private Rect hitbox;
     private boolean boosting;
+    private int shieldStrength;
     private final int GRAVITY = -12;
     private final int MIN_SPEED = 1;
     private final int MAX_SPEED = 20;
@@ -25,6 +28,8 @@ public class TappyShipPlayerShip {
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ship);
         maxY = screenSizeY - bitmap.getHeight();
         minY = 0;
+        hitbox = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
+        shieldStrength = 2;
     }
 
     public int getX() {
@@ -37,6 +42,14 @@ public class TappyShipPlayerShip {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public Rect getHitbox() {
+        return hitbox;
+    }
+
+    public int getShieldStrength() {
+        return shieldStrength;
     }
 
     public Bitmap getBitmap() {
@@ -75,5 +88,10 @@ public class TappyShipPlayerShip {
         if (y < minY) {
             y = minY;
         }
+
+        hitbox.left = x;
+        hitbox.top = y;
+        hitbox.right = x + bitmap.getWidth();
+        hitbox.bottom = y + bitmap.getHeight();
     }
 }
